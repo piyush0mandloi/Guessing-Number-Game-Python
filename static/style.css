@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --panel: #12121c;
+  --border: #2a2a45;
+  --accent: #00f5c4;
+  --accent-dim: #00c49a;
+  --danger: #ff3f6c;
+  --warn: #ffcc00;
+  --text: #e0e0f0;
+  --text-dim: #7a7a9a;
+  --glow: 0 0 12px #00f5c480, 0 0 30px #00f5c430;
+  --glow-danger: 0 0 12px #ff3f6c80, 0 0 30px #ff3f6c30;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, #1a1a2e 39px, #1a1a2e 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, #1a1a2e 39px, #1a1a2e 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'VT323', monospace;
+  color: var(--text);
+  padding: 20px;
+}
+
+/* Scanline overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+.game-card {
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  padding: 40px 48px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 0 0 1px #00f5c415, inset 0 0 60px rgba(0,0,0,0.5);
+  animation: cardIn 0.6s ease forwards;
+}
+
+/* Corner accents */
+.game-card::before,
+.game-card::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+.game-card::before {
+  top: -2px; left: -2px;
+  border-width: 3px 0 0 3px;
+}
+.game-card::after {
+  bottom: -2px; right: -2px;
+  border-width: 0 3px 3px 0;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Title ── */
+h1 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  text-shadow: var(--glow);
+  text-align: center;
+  line-height: 1.7;
+  letter-spacing: 1px;
+  margin-bottom: 32px;
+}
+
+/* ── Stats row ── */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+  padding: 10px 16px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.stats p {
+  color: var(--text-dim);
+}
+
+.stats p span {
+  color: var(--warn);
+  text-shadow: 0 0 8px #ffcc0070;
+}
+
+/* ── Form ── */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  letter-spacing: 3px;
+  text-align: center;
+  background: #080810;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+  caret-color: var(--accent);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]::placeholder {
+  color: #2e2e50;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+input[type="text"]:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow), inset 0 0 20px rgba(0,245,196,0.04);
+}
+
+/* Buttons */
+button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 14px 10px;
+  transition: transform 0.1s, box-shadow 0.15s, background 0.15s;
+  line-height: 1.6;
+}
+
+button:active {
+  transform: scale(0.96) translateY(1px);
+}
+
+/* Guess button */
+#btn {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 4px 0 var(--accent-dim), var(--glow);
+}
+
+#btn:hover {
+  background: #00ffd0;
+  box-shadow: 0 4px 0 var(--accent-dim), 0 0 20px #00f5c480, 0 0 40px #00f5c430;
+}
+
+/* New Game button */
+button[name="action"] {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+button[name="action"]:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  box-shadow: var(--glow-danger);
+}
+
+/* ── Message ── */
+.message {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 24px;
+  padding: 12px 16px;
+  min-height: 50px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  color: var(--warn);
+  animation: blink-in 0.3s ease;
+}
+
+@keyframes blink-in {
+  0%   { opacity: 0; transform: scale(0.97); }
+  60%  { opacity: 1; transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+/* Flicker animation for title */
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%            { opacity: 0.7; }
+  97%            { opacity: 1; }
+  98%            { opacity: 0.5; }
+  99%            { opacity: 1; }
+}
+
+h1 {
+  animation: flicker 5s infinite;
+}

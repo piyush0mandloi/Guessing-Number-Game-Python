@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="game-card ">
+
+        <h1>Number Guessing Game</h1>
+        <div class="stats">
+            <p>Total Attempts: </span>5</span></p>
+            <p>Attempts Left: <span> {{attempts_left}}</span></p>
+        </div>
+        
+        <form method="POST">
+            <input type="text" placeholder="Enter your guess" name="guess" required>
+            <button id="btn" type="submit">Guess</button>
+            <button type="submit" value="reset" name="action">New Game</button>
+        </form>
+        
+        <p class="message">{{ message }}</p>
+        
+    </div>
+    <script>
+        const count = 5
+        const btn = document.getElementById("btn")
+        btn.addEventListener(()=>{
+            btn.onclick = count--
+        })
+    </script>
+</body>
+</html>
