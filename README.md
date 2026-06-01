@@ -1,3 +1,5 @@
+<img width="1609" height="903" alt="Screenshot 2026-05-31 115807" src="https://github.com/user-attachments/assets/465213c8-6bfd-41c6-9c8d-2d689e829520" />
+
 # Number Guessing Game
 
 A simple web-based number guessing game built with Python and Flask. The app chooses a random number between 1 and 10, and the player gets 5 attempts to guess it.
